@@ -14,7 +14,6 @@ namespace Paint_quest_test
     {
         Pen my_pen;
         Bitmap my_bitmap;
-        SolidBrush current_brush;
         SolidBrush my_brush;
         Graphics graph;
         int step;
@@ -26,6 +25,8 @@ namespace Paint_quest_test
         {
             graph.Clear(Color.Black);
             pb_canvas.Image = my_bitmap;
+            
+            // draw grid
             for (int i = step; i <= pb_canvas.Width; i += step)
             {
                 graph.DrawLine(my_pen, i, 0, i, pb_canvas.Height);
@@ -34,21 +35,25 @@ namespace Paint_quest_test
             {
                 graph.DrawLine(my_pen, 0, i, pb_canvas.Width, i);
             }
-            
-            for(int i = 0; i<=1000; i++)
+            ////
+
+            //draw rectangles
+            for (int i = 0; i<=1000; i++)
                 for(int j = 0; j<=1000; j++)
                 {
                     if (matrix[i, j] != Color.Empty)
                     {
-                        //    MessageBox.Show(i.ToString() + " : " + j.ToString());
-                     //   MessageBox.Show(i.ToString() + " : " + j.ToString() + " " + matrix[i,j].ToString());
-                        current_brush = new SolidBrush(matrix[i, j]);
-                        
-                        graph.FillRectangle(current_brush, new Rectangle(i*step,j*step,step,step));
-                        pb_canvas.Image = my_bitmap;
+                        //   MessageBox.Show(i.ToString() + " : " + j.ToString() + " " + matrix[i,j].ToString());
+                        Point point = new Point();
+                        point.X = i * step + (int)my_pen.Width;
+                        point.Y = j * step + (int)my_pen.Width;
+
+                        Size size = new Size(step-(int)my_pen.Width*2, step - (int)my_pen.Width * 2);
+                        SolidBrush current_brush = new SolidBrush(matrix[i, j]);
+                        graph.FillRectangle(current_brush, new Rectangle(point,size));
                     }
                 }
-
+            /////
         }
         
         
@@ -88,7 +93,7 @@ namespace Paint_quest_test
             }
             catch
             {
-
+                // на випадок згортання вікна
             }
             graph = Graphics.FromImage(my_bitmap);
             draw_grid();
@@ -129,23 +134,7 @@ namespace Paint_quest_test
         {
             if (e.KeyCode == Keys.Enter)
             {
-                try
-                {
-                    int value = Convert.ToInt32(tb_step.Text);
-                    if (value <= 50 && value >= 10)
-                    {
-                        step = value;
-                    }
-                    else
-                    {
-                        tb_step.Text = Convert.ToString(step);
-                    }
-                }
-                catch
-                {
-                    tb_step.Text = Convert.ToString(step);
-                }
-                draw_grid();
+                tb_step_Validated(sender, e);
             }
         }
 
@@ -154,9 +143,9 @@ namespace Paint_quest_test
             Point pos = this.PointToClient(Cursor.Position);
             pos.X -= pb_canvas.Location.X;
             pos.Y -= pb_canvas.Location.Y;
-            pos.X /= step; pos.X *= step;
-            pos.Y /= step; pos.Y *= step;
-            Size size = new Size(step, step);
+            pos.X /= step; pos.X *= step; pos.X += (int)my_pen.Width;
+            pos.Y /= step; pos.Y *= step; pos.Y += (int)my_pen.Width;
+            Size size = new Size(step-(int)my_pen.Width*2, step-(int)my_pen.Width * 2);
             tb_pos.Text = pos.X.ToString() + ":" + pos.Y.ToString();
             if (e.Button == MouseButtons.Left)
             {
@@ -168,19 +157,7 @@ namespace Paint_quest_test
 
         private void pb_canvas_MouseClick(object sender, MouseEventArgs e)
         {
-            Point pos = this.PointToClient(Cursor.Position);
-            pos.X -= pb_canvas.Location.X;
-            pos.Y -= pb_canvas.Location.Y;
-            pos.X /= step; pos.X *= step;
-            pos.Y /= step; pos.Y *= step;
-            Size size = new Size(step, step);
-            tb_pos.Text = pos.X.ToString() + ":" + pos.Y.ToString();
-            if (e.Button == MouseButtons.Left)
-            {
-                pb_canvas.Image = my_bitmap;
-                graph.FillRectangle(my_brush, new Rectangle(pos, size));
-                matrix[pos.X / step, pos.Y / step] = my_color;
-            }
+            pb_canvas_MouseMove(sender, e);
         }
 
         private void btn_paint_color_Click(object sender, EventArgs e)
