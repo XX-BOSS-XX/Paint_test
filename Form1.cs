@@ -99,7 +99,7 @@ namespace Paint_quest_test
             for(int i = 0; i <= 1000; i++)
                 for(int j = 0; j <= 1000; j++)
                 {
-                    matrix[i,j] = Color.Black;
+                    matrix[i,j] = Color.Empty;
                 }
             draw_grid();
         }
