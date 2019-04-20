@@ -127,6 +127,7 @@ namespace Paint_quest_test
             {
                 tb_step.Text = Convert.ToString(step);
             }
+            Form1_Resize(sender, e);
             draw_grid();
         }
 
