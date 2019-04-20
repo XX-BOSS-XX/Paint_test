@@ -94,6 +94,8 @@
             this.tb_width.Name = "tb_width";
             this.tb_width.Size = new System.Drawing.Size(75, 20);
             this.tb_width.TabIndex = 2;
+            this.tb_width.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_width_KeyDown);
+            this.tb_width.Validated += new System.EventHandler(this.tb_width_Validated);
             // 
             // tb_step
             // 

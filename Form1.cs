@@ -168,7 +168,7 @@ namespace Paint_quest_test
             {
                 pb_canvas.Image = my_bitmap;
                 graph.FillRectangle(my_brush, new Rectangle(pos, size));
-                matrix[pos.X / step, pos.Y / step] = my_color;
+                try { matrix[pos.X / step, pos.Y / step] = my_color; } catch { }
             }
         }
 
@@ -186,6 +186,52 @@ namespace Paint_quest_test
                 my_brush = new SolidBrush(colorDialog.Color);
                 my_color = colorDialog.Color;
             //    draw_grid();
+            }
+        }
+
+        private void tb_width_Validated(object sender, EventArgs e)
+        {
+            try
+            {
+                int value = Convert.ToInt32(tb_width.Text);
+                if (value <= 3 && value >= 1)
+                {
+                    my_pen.Width = value;
+                }
+                else
+                {
+                    tb_width.Text = Convert.ToString(my_pen.Width);
+                }
+            }
+            catch
+            {
+                tb_width.Text = Convert.ToString(my_pen.Width);
+            }
+            draw_grid();
+        }
+
+        private void tb_width_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                try
+                {
+                    int value = Convert.ToInt32(tb_width.Text);
+                    if (value <= 3 && value >= 1)
+                    {
+                        my_pen.Width = value;
+                    }
+                    else
+                    {
+                        tb_width.Text = Convert.ToString(my_pen.Width);
+                    }
+                }
+                catch
+                {
+                    tb_width.Text = "";
+                }
+                draw_grid();
             }
         }
     }
