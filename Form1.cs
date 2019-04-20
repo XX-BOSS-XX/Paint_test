@@ -128,14 +128,30 @@ namespace Paint_quest_test
                 tb_step.Text = Convert.ToString(step);
             }
             Form1_Resize(sender, e);
-            draw_grid();
         }
 
         private void tb_step_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                tb_step_Validated(sender, e);
+                e.SuppressKeyPress = true;
+                try
+                {
+                    int value = Convert.ToInt32(tb_step.Text);
+                    if (value <= 50 && value >= 10)
+                    {
+                        step = value;
+                    }
+                    else
+                    {
+                        tb_step.Text = Convert.ToString(step);
+                    }
+                }
+                catch
+                {
+                    tb_step.Text = "";
+                }
+                Form1_Resize(sender, e);
             }
         }
 
