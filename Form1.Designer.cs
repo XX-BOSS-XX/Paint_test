@@ -38,8 +38,10 @@
             this.lb_pos = new System.Windows.Forms.Label();
             this.lb_width = new System.Windows.Forms.Label();
             this.lb_step = new System.Windows.Forms.Label();
+            this.btn_save = new System.Windows.Forms.Button();
             this.btn_clean = new System.Windows.Forms.Button();
             this.pb_canvas = new System.Windows.Forms.PictureBox();
+            this.btn_open = new System.Windows.Forms.Button();
             this.panel_main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_canvas)).BeginInit();
             this.SuspendLayout();
@@ -56,6 +58,8 @@
             this.panel_main.Controls.Add(this.lb_pos);
             this.panel_main.Controls.Add(this.lb_width);
             this.panel_main.Controls.Add(this.lb_step);
+            this.panel_main.Controls.Add(this.btn_open);
+            this.panel_main.Controls.Add(this.btn_save);
             this.panel_main.Controls.Add(this.btn_clean);
             this.panel_main.Location = new System.Drawing.Point(12, 12);
             this.panel_main.Name = "panel_main";
@@ -64,7 +68,7 @@
             // 
             // panel_my_color
             // 
-            this.panel_my_color.Location = new System.Drawing.Point(92, 138);
+            this.panel_my_color.Location = new System.Drawing.Point(97, 212);
             this.panel_my_color.Name = "panel_my_color";
             this.panel_my_color.Size = new System.Drawing.Size(20, 20);
             this.panel_my_color.TabIndex = 5;
@@ -72,7 +76,7 @@
             // btn_paint_color
             // 
             this.btn_paint_color.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_paint_color.Location = new System.Drawing.Point(120, 137);
+            this.btn_paint_color.Location = new System.Drawing.Point(125, 211);
             this.btn_paint_color.Name = "btn_paint_color";
             this.btn_paint_color.Size = new System.Drawing.Size(70, 25);
             this.btn_paint_color.TabIndex = 4;
@@ -82,7 +86,7 @@
             // 
             // tb_pos
             // 
-            this.tb_pos.Location = new System.Drawing.Point(60, 112);
+            this.tb_pos.Location = new System.Drawing.Point(65, 186);
             this.tb_pos.Name = "tb_pos";
             this.tb_pos.ReadOnly = true;
             this.tb_pos.Size = new System.Drawing.Size(75, 20);
@@ -90,7 +94,7 @@
             // 
             // tb_width
             // 
-            this.tb_width.Location = new System.Drawing.Point(60, 86);
+            this.tb_width.Location = new System.Drawing.Point(65, 160);
             this.tb_width.Name = "tb_width";
             this.tb_width.Size = new System.Drawing.Size(75, 20);
             this.tb_width.TabIndex = 2;
@@ -99,7 +103,7 @@
             // 
             // tb_step
             // 
-            this.tb_step.Location = new System.Drawing.Point(60, 60);
+            this.tb_step.Location = new System.Drawing.Point(65, 134);
             this.tb_step.MaxLength = 50;
             this.tb_step.Name = "tb_step";
             this.tb_step.Size = new System.Drawing.Size(75, 20);
@@ -110,7 +114,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(9, 137);
+            this.label1.Location = new System.Drawing.Point(14, 211);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 25);
             this.label1.TabIndex = 1;
@@ -120,7 +124,7 @@
             // lb_pos
             // 
             this.lb_pos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_pos.Location = new System.Drawing.Point(9, 110);
+            this.lb_pos.Location = new System.Drawing.Point(14, 184);
             this.lb_pos.Name = "lb_pos";
             this.lb_pos.Size = new System.Drawing.Size(45, 23);
             this.lb_pos.TabIndex = 1;
@@ -130,7 +134,7 @@
             // lb_width
             // 
             this.lb_width.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_width.Location = new System.Drawing.Point(9, 84);
+            this.lb_width.Location = new System.Drawing.Point(14, 158);
             this.lb_width.Name = "lb_width";
             this.lb_width.Size = new System.Drawing.Size(45, 23);
             this.lb_width.TabIndex = 1;
@@ -140,17 +144,28 @@
             // lb_step
             // 
             this.lb_step.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lb_step.Location = new System.Drawing.Point(9, 58);
+            this.lb_step.Location = new System.Drawing.Point(14, 132);
             this.lb_step.Name = "lb_step";
             this.lb_step.Size = new System.Drawing.Size(45, 23);
             this.lb_step.TabIndex = 1;
             this.lb_step.Text = "Step:";
             this.lb_step.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btn_save
+            // 
+            this.btn_save.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_save.Location = new System.Drawing.Point(12, 48);
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Size = new System.Drawing.Size(178, 30);
+            this.btn_save.TabIndex = 0;
+            this.btn_save.Text = "Save";
+            this.btn_save.UseVisualStyleBackColor = true;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
+            // 
             // btn_clean
             // 
             this.btn_clean.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_clean.Location = new System.Drawing.Point(12, 12);
+            this.btn_clean.Location = new System.Drawing.Point(12, 84);
             this.btn_clean.Name = "btn_clean";
             this.btn_clean.Size = new System.Drawing.Size(178, 30);
             this.btn_clean.TabIndex = 0;
@@ -168,6 +183,17 @@
             this.pb_canvas.TabStop = false;
             this.pb_canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pb_canvas_MouseClick);
             this.pb_canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pb_canvas_MouseMove);
+            // 
+            // btn_open
+            // 
+            this.btn_open.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_open.Location = new System.Drawing.Point(12, 12);
+            this.btn_open.Name = "btn_open";
+            this.btn_open.Size = new System.Drawing.Size(178, 30);
+            this.btn_open.TabIndex = 0;
+            this.btn_open.Text = "Open";
+            this.btn_open.UseVisualStyleBackColor = true;
+            this.btn_open.Click += new System.EventHandler(this.btn_open_Click);
             // 
             // Form1
             // 
@@ -203,6 +229,8 @@
         private System.Windows.Forms.Panel panel_my_color;
         private System.Windows.Forms.Button btn_paint_color;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_save;
+        private System.Windows.Forms.Button btn_open;
     }
 }
 

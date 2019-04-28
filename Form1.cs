@@ -18,14 +18,14 @@ namespace Paint_quest_test
         Graphics graph;
         int step;
         Color my_color;
-        Color[,] matrix = new Color[1005,1005];
+        Color[,] matrix = new Color[1005, 1005];
 
         /////////////////////////
         void draw_grid()
         {
             graph.Clear(Color.Black);
             pb_canvas.Image = my_bitmap;
-            
+
             // draw grid
             for (int i = step; i <= pb_canvas.Width; i += step)
             {
@@ -38,8 +38,8 @@ namespace Paint_quest_test
             ////
 
             //draw rectangles
-            for (int i = 0; i<=1000; i++)
-                for(int j = 0; j<=1000; j++)
+            for (int i = 0; i <= 1000; i++)
+                for (int j = 0; j <= 1000; j++)
                 {
                     if (matrix[i, j] != Color.Empty)
                     {
@@ -48,17 +48,79 @@ namespace Paint_quest_test
                         point.X = i * step + (int)my_pen.Width;
                         point.Y = j * step + (int)my_pen.Width;
 
-                        Size size = new Size(step-(int)my_pen.Width*2, step - (int)my_pen.Width * 2);
+                        Size size = new Size(step - (int)my_pen.Width * 2, step - (int)my_pen.Width * 2);
                         SolidBrush current_brush = new SolidBrush(matrix[i, j]);
-                        graph.FillRectangle(current_brush, new Rectangle(point,size));
+                        graph.FillRectangle(current_brush, new Rectangle(point, size));
                     }
                 }
             /////
         }
-        
-        
+
+        void read_color_matrix(string color_matrix) {
+            string[] lines = color_matrix.Split('\n');
+            for(int i = 0; i < lines.Length; i++)
+            {
+                string[] items = lines[i].Split(' ');
+                for (int j = 0; j < items.Length; j++)
+                {
+                    if (items[j] == "-1")
+                    {
+                        matrix[i, j] = Color.Empty;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            string[] shades = items[j].Split(':');
+                            int A = Convert.ToInt32(shades[0]);
+                            int R = Convert.ToInt32(shades[1]);
+                            int G = Convert.ToInt32(shades[2]);
+                            int B = Convert.ToInt32(shades[3]);
+                            matrix[i, j] = Color.FromArgb(A, R, G, B);
+                        }
+                        catch
+                        {
+                            matrix[i, j] = Color.Empty;
+                        }
+                    }
+                }
+            }
+            
+        }
+        string write_color_matrix()
+        {
+            /*
+                encode matrix:
+                " alpha:red:green:blue : alpha:red:green:blue " ...
+                " alpha:red:green:blue : alpha:red:green:blue " ...
+                ...
+            */
+            string color_matrix = "";
+
+            for (int i = 0; i <= 1000; i++)
+            {
+                for (int j = 0; j <= 1000; j++)
+                {
+                    if (!matrix[i, j].IsEmpty)
+                    {
+                        color_matrix += matrix[i, j].A + ":";
+                        color_matrix += matrix[i, j].R + ":";
+                        color_matrix += matrix[i, j].G + ":";
+                        color_matrix += matrix[i, j].B + " ";
+                    }
+                    else
+                    {
+                        color_matrix += "-1 ";
+                    }
+                }
+                color_matrix += "\n";
+            }
+
+            return color_matrix;
+        }
+
         ////////////////////
-        
+
         public Form1()
         {
             InitializeComponent();
@@ -234,5 +296,36 @@ namespace Paint_quest_test
                 draw_grid();
             }
         }
+
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog save_file_dialog = new SaveFileDialog();
+            save_file_dialog.DefaultExt = "txt";
+            save_file_dialog.FileName = "color_matrix";
+            string color_matrix = "";
+            if (save_file_dialog.ShowDialog() == DialogResult.OK)
+            {
+                color_matrix = write_color_matrix();
+            }
+            string file_name = save_file_dialog.FileName;
+            System.IO.File.WriteAllText(file_name,color_matrix);
+        }
+
+        private void btn_open_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open_file_dialog = new OpenFileDialog();
+            open_file_dialog.DefaultExt = "txt";
+            open_file_dialog.FileName = "color_matrix";
+            string color_matrix;
+
+            if (open_file_dialog.ShowDialog() == DialogResult.OK)
+            {
+                string file_name = open_file_dialog.FileName;
+                color_matrix = System.IO.File.ReadAllText(file_name);
+                read_color_matrix(color_matrix);
+            }
+            draw_grid();
+        }
     }
 }
+
